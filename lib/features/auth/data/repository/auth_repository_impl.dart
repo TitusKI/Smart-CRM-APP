@@ -17,8 +17,33 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<void> signup(SignupEntity entity) {
+  Future<void> signup(UserEntity entity) {
     print("Repository sign up email is ${entity.email}");
     return sl<AuthServices>().signup(entity);
+  }
+
+  @override
+  Future<void> deleteMyAccount() {
+    return sl<AuthServices>().deleteAccount();
+  }
+
+  @override
+  Future<void> createUser(UserEntity user) {
+    return sl<AuthServices>().createUser(user);
+  }
+
+  @override
+  Future<void> deleteUser(String id) {
+    return sl<AuthServices>().deleteUser(id);
+  }
+
+  @override
+  Future<List<UserEntity>> getAllUsers() {
+    return sl<AuthServices>().getAllUsers();
+  }
+
+  @override
+  Future<UserEntity> getUserById(String id) {
+    return sl<AuthServices>().getUserById(id);
   }
 }
