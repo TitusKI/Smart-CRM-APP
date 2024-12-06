@@ -1,4 +1,4 @@
-class SignupEntity {
+class UserEntity {
   final String email;
   final String password;
   final String confirmPassword;
@@ -6,7 +6,7 @@ class SignupEntity {
   final String? profileImage;
   final String? role;
 
-  SignupEntity({
+  UserEntity({
     required this.confirmPassword,
     this.profileImage,
     this.role,
