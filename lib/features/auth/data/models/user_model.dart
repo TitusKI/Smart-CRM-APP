@@ -19,10 +19,10 @@ class UserModel {
     return {
       'email': email,
       'password': password,
-      'confirmPassword': confirmPassword,
+      'passwordConfirmation': confirmPassword,
       'name': name,
-      'profileImage': profileImage,
-      'role': role,
+      'profileImage': profileImage ?? "",
+      'role': role ?? "user",
     };
   }
 
