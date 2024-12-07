@@ -9,17 +9,17 @@ class StorageServices {
   }
 
   Future<void> storeToken({
-    String? token,
-    String? resetToken,
+    required String token,
+    String? email,
+    required String userId,
   }) async {
-    if (token != null) {
+    if (token.isNotEmpty) {
       await _prefs.setString('token', token);
     }
-  }
+    if (userId.isNotEmpty) {
+      await _prefs.setString(AppConstant.USER_ID_KEY, userId);
+    }
 
-  Future<void> storeEmail({
-    String? email,
-  }) async {
     if (email != null) {
       await _prefs.setString('email', email);
     }
@@ -28,6 +28,7 @@ class StorageServices {
   Future<void> clearTokens() async {
     await _prefs.remove('token');
     await _prefs.remove('email');
+    await _prefs.remove(AppConstant.USER_ID_KEY);
   }
 
   String? getToken() {
@@ -36,6 +37,10 @@ class StorageServices {
 
   String? getEmail() {
     return _prefs.getString('email');
+  }
+
+  Future<String?> getUserId() async {
+    return _prefs.getString(AppConstant.USER_ID_KEY);
   }
 
   bool getDeviceFirstOpen() {
