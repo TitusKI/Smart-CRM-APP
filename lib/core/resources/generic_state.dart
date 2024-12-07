@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:equatable/equatable.dart';
 
 class GenericState<T> extends Equatable {
@@ -8,26 +6,23 @@ class GenericState<T> extends Equatable {
   final String? failure;
 
   final T? data;
-  final File? imageFile;
   const GenericState({
     this.isLoading = false,
     this.isSuccess = false,
     this.data,
-    this.imageFile,
     this.failure = "",
   });
-  GenericState copyWith(
-      {bool? isLoading,
-      bool? isSuccess,
-      String? failure,
-      T? data,
-      File? imageFile}) {
+  GenericState copyWith({
+    bool? isLoading,
+    bool? isSuccess,
+    String? failure,
+    T? data,
+  }) {
     return GenericState(
       isLoading: isLoading ?? this.isLoading,
       isSuccess: isSuccess ?? this.isSuccess,
       failure: failure ?? this.failure,
       data: data ?? this.data,
-      imageFile: imageFile ?? this.imageFile,
     );
   }
 
@@ -37,6 +32,5 @@ class GenericState<T> extends Equatable {
         isSuccess,
         failure,
         data,
-        imageFile,
       ];
 }
