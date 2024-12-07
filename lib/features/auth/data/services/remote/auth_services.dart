@@ -21,10 +21,27 @@ abstract class AuthServices {
 class AuthServicesImpl implements AuthServices {
   final storageService = sl<StorageServices>();
 
-  final Dio _dio = Dio(BaseOptions(baseUrl: AppConstant.BASE_URL, headers: {
-    'Content-Type': 'application/json',
-  }));
-
+  final Dio _dio = Dio(BaseOptions(
+    baseUrl: AppConstant.BASE_URL,
+  ));
+  AuthServicesImpl() {
+    _dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        // final token = storageService.getToken();
+        // if (token != null) {
+        //   options.headers['Authorization'] = 'Bearer $token';
+        // }
+        return handler.next(options);
+      },
+      onError: (error, handler) {
+        if (error.response?.statusCode == 401) {
+          storageService.clearTokens();
+        }
+        print(error.toString());
+        return handler.next(error);
+      },
+    ));
+  }
   @override
   Future<void> login(LoginEntity entity) async {
     try {
@@ -36,11 +53,11 @@ class AuthServicesImpl implements AuthServices {
       if (data == null || data['token'] == null) {
         throw Exception("Login failed: No access token received");
       }
-
+      print("token: ${data['token']}");
       await storageService.storeToken(
           token: data['token'],
-          userId: data['_id']['\$oid'],
-          email: data['email']);
+          userId: data['data']['id'],
+          email: data['data']['email']);
     } catch (err) {
       if (err is DioException) {
         if (err.response != null) {
@@ -70,7 +87,13 @@ class AuthServicesImpl implements AuthServices {
     await storageService.clearTokens();
     try {
       final UserModel userInfo = UserModel.fromEntity(entity);
-      final response = await _dio.post("/users/signUp", data: userInfo.toMap());
+      print(userInfo.toMap());
+      final response = await _dio.post(
+        "/users/signUp",
+        data: userInfo.toMap(),
+      );
+      print(response.data);
+      print("passed signup");
       final data = response.data;
       if (data == null || data['token'] == null) {
         throw Exception("Sign up  failed: No access token received");
@@ -83,6 +106,7 @@ class AuthServicesImpl implements AuthServices {
       } else {
         print("Unexpected error :$err");
       }
+      print("Failed to sign up");
     }
   }
 

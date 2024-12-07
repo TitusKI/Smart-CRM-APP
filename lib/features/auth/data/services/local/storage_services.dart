@@ -50,4 +50,7 @@ class StorageServices {
   bool getIsLoggedIn() {
     return _prefs.getBool(AppConstant.USER_TOKEN) ?? false;
   }
+  Future<void> setBool(String key, bool value) async {
+    await _prefs.setBool(key, value);
+  }
 }
