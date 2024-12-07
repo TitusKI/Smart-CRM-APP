@@ -52,7 +52,6 @@ class ContactServicesImpl implements ContactServices {
       if (data == null || data['token'] == null) {
         throw Exception("Adding contact failed: No access token received");
       }
-      await storageService.storeToken(token: data['token']);
       print("Contact added successfully");
     } catch (err) {
       if (err is DioException) {
@@ -74,7 +73,6 @@ class ContactServicesImpl implements ContactServices {
       if (data == null || data['token'] == null) {
         throw Exception("Deleting contact failed: No access token received");
       }
-      await storageService.storeToken(token: data['token']);
       print("Contact deleted successfully");
     } catch (err) {
       if (err is DioException) {
