@@ -8,7 +8,6 @@ import 'package:smart_crm_app/features/auth/presentation/bloc/sign_up/sign_up_bl
 import 'package:smart_crm_app/features/auth/presentation/bloc/welcome/welcome_bloc.dart';
 import 'package:smart_crm_app/features/auth/presentation/pages/reset_screen.dart';
 import 'package:smart_crm_app/features/auth/presentation/pages/sign_up.dart';
-
 import '../../features/auth/presentation/bloc/animation/animation_bloc.dart';
 import '../../features/auth/presentation/bloc/toogle_password/toggle_password_bloc.dart';
 import '../../features/auth/presentation/bloc/verification/verification_bloc.dart';
@@ -17,6 +16,8 @@ import '../../features/auth/presentation/pages/verification_code.dart';
 import '../../features/auth/presentation/pages/welcome.dart';
 import '../../features/common/bottom_navigation/bottom_navigation_bloc.dart';
 import '../../features/common/navigation.dart';
+import '../../features/dashboard/presentation/bloc/dashboard_cubit.dart';
+import '../../features/dashboard/presentation/pages/dashboard_screen.dart';
 import '../../injection_container.dart';
 
 class AppPages {
@@ -49,6 +50,13 @@ class AppPages {
           route: AppRoutes.HOME,
           page: const MyHomePage(),
           bloc: BlocProvider(create: (_) => sl<BottomNavigationBloc>())),
+
+      PageEntity(
+        route: AppRoutes.DASHBOARD,
+        page: const DashboardScreen(),
+        bloc: BlocProvider(
+            create: (_) => sl<DashboardCubit>()..loadDashboardData()),
+      ),
       // Home Page
       PageEntity(
           bloc: BlocProvider(
