@@ -26,11 +26,11 @@ class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
   final SignInController _signInController = SignInController();
   late SignInBloc _signInBloc;
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   _signInBloc = BlocProvider.of<SignInBloc>(context);
-  // }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _signInBloc = BlocProvider.of<SignInBloc>(context);
+  }
 
   @override
   void dispose() {
