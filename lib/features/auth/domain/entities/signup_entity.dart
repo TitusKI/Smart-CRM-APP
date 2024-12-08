@@ -1,7 +1,7 @@
 class UserEntity {
   final String email;
   final String password;
-  final String confirmPassword;
+  final String? confirmPassword;
   final String name;
   final String? profileImage;
   final String? role;

@@ -3,14 +3,14 @@ import 'package:smart_crm_app/features/auth/domain/entities/signup_entity.dart';
 class UserModel {
   final String email;
   final String password;
-  final String confirmPassword;
+  final String? confirmPassword;
   final String name;
   final String? profileImage;
   final String? role;
   const UserModel({
     required this.email,
     required this.password,
-    required this.confirmPassword,
+    this.confirmPassword,
     required this.name,
     this.profileImage,
     this.role,
@@ -30,7 +30,6 @@ class UserModel {
     return UserModel(
       email: map['email'],
       password: map['password'],
-      confirmPassword: map['confirmPassword'],
       name: map['name'],
       profileImage: map['profileImage'],
       role: map['role'],
