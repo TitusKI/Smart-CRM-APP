@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:data_table_2/data_table_2.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_crm_app/features/admin/presentation/pages/admin_dashboard.dart';
 
 import '../../../../config/theme/colors.dart';
 import '../../../../core/resources/generic_state.dart';
@@ -107,8 +109,9 @@ class _UsersScreenState extends State<UsersScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        foregroundColor: AppColors.accentColor,
+        backgroundColor: AppColors.primaryBackground,
         onPressed: () => _showUserDialog(context, null),
-        backgroundColor: AppColors.primaryColor,
         child: const Icon(Icons.add),
       ),
     );
@@ -132,17 +135,29 @@ class _UsersScreenState extends State<UsersScreen> {
               controller: nameController,
               decoration: const InputDecoration(labelText: "Name"),
             ),
+            SizedBox(
+              height: 4.h,
+            ),
             TextField(
               controller: emailController,
               decoration: const InputDecoration(labelText: "Email"),
+            ),
+            SizedBox(
+              height: 4.h,
             ),
             TextField(
               controller: roleController,
               decoration: const InputDecoration(labelText: "Role"),
             ),
+            SizedBox(
+              height: 4.h,
+            ),
             TextField(
               controller: passwordController,
               decoration: const InputDecoration(labelText: "Password"),
+            ),
+            SizedBox(
+              height: 4.h,
             ),
             TextField(
               controller: confirmPasswordController,
@@ -157,7 +172,8 @@ class _UsersScreenState extends State<UsersScreen> {
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primaryColor,
+              foregroundColor: AppColors.primaryBackground,
+              backgroundColor: AppColors.accentColor,
             ),
             onPressed: () {
               final newUser = UserEntity(
@@ -174,7 +190,6 @@ class _UsersScreenState extends State<UsersScreen> {
             },
             child: const Text(
               "Add",
-              style: TextStyle(color: Colors.white),
             ),
           ),
         ],
