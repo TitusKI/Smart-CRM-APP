@@ -1,17 +1,19 @@
 class UserEntity {
   final String email;
-  final String password;
+  final String? password;
   final String? confirmPassword;
   final String name;
   final String? profileImage;
   final String? role;
+  final String? id;
 
   UserEntity({
-    required this.confirmPassword,
+    this.confirmPassword,
     this.profileImage,
+    this.id,
     this.role,
     required this.email,
-    required this.password,
+    this.password,
     required this.name,
   });
 }

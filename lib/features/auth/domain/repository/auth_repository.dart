@@ -6,7 +6,7 @@ abstract class AuthRepository {
   Future<void> signup(UserEntity signupEnitity);
   Future<void> logout();
   Future<void> deleteMyAccount();
-
+// admin functionality
   Future<List<UserEntity>> getAllUsers();
   Future<UserEntity> getUserById(String id);
   Future<void> createUser(UserEntity user);
