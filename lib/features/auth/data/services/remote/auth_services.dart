@@ -147,10 +147,8 @@ class AuthServicesImpl implements AuthServices {
             "Authorization": "Bearer ${storageService.getToken()}"
           }));
       final data = response.data;
-      if (data == null) {
-        throw Exception(
-            "User registerd failed  failed: No access token received");
-      }
+      print(data);
+      getAllUsers();
     } catch (err) {
       if (err is DioException) {
         if (err.response != null) {
