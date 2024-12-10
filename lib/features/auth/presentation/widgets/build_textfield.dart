@@ -76,10 +76,10 @@ class MyTextField extends StatelessWidget {
           borderSide:
               BorderSide(color: Theme.of(context).colorScheme.secondary),
         ),
-        fillColor: AppColors.cardColor,
+        fillColor: AppColors.cardBackground,
         filled: true,
         hintText: hintText,
-        hintStyle: const TextStyle(color: AppColors.primarySecondaryText),
+        hintStyle: const TextStyle(color: AppColors.primaryText),
         errorText: errorMsg,
       ),
     );

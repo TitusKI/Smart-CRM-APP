@@ -71,8 +71,8 @@ class NoInternetConnectionWidget extends StatelessWidget {
           ElevatedButton(
             onPressed: onRetry,
             style: ElevatedButton.styleFrom(
-              backgroundColor:
-                  Colors.blue, // Use AppColors.primaryColor if defined
+              backgroundColor: AppColors
+                  .accentColor, // Use AppColors.primaryColor if defined
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -96,41 +96,15 @@ AppBar buildAppBarLarge(String type,
     centerTitle: true,
     leading: leading,
     iconTheme: const IconThemeData(color: AppColors.primaryBackground),
-    backgroundColor: AppColors.secondaryColor,
-    flexibleSpace: Container(
-        // decoration: const BoxDecoration(
-        //   // gradient: LinearGradient(
-        //   //   colors: [
-        //   //     AppColors.secondaryColor, // Medium Persian Blue
-        //   //     AppColors.accentColor, // Vivid Cerulean
-        //   //   ],
-        //   //   begin: Alignment.topLeft,
-        //   //   end: Alignment.bottomRight,
-        //   // ),
-        // ),
-        ),
+    backgroundColor: AppColors.accentColor,
+    flexibleSpace: Container(),
     actions: actions,
-    // systemOverlayStyle:
-    //     const SystemUiOverlayStyle(statusBarColor: AppColors.secondaryColor),
-    toolbarHeight: 50.0,
-    // backgroundColor: AppColors.secondaryColor,
-    elevation: 10,
-    // backgroundColor: Colors.transparent,
+    toolbarHeight: 50.0.h,
+    elevation: 10.h,
     bottom: PreferredSize(
-      preferredSize: const Size.fromHeight(1.0),
+      preferredSize: Size.fromHeight(1.0.h),
       child: Container(
-        // decoration: const BoxDecoration(
-        //   gradient: LinearGradient(
-        //     colors: [
-        //       AppColors.secondaryColor, // Medium Persian Blue
-        //       AppColors.accentColor, // Vivid Cerulean
-        //     ],
-        //     begin: Alignment.topLeft,
-        //     end: Alignment.bottomRight,
-        //   ),
-        // ),
-        // height defines the thickness of the line
-        height: 1.0,
+        height: 1.0.h,
       ),
     ),
     title: Center(
@@ -157,7 +131,7 @@ Widget buildThirdPartyLogin(BuildContext context, void Function()? func) {
       decoration: BoxDecoration(
         color: AppColors.secondaryColor,
         borderRadius: BorderRadius.circular(15.w),
-        border: Border.all(color: AppColors.cardColor),
+        border: Border.all(color: AppColors.cardBackground),
       ),
       child: Row(
         children: [
@@ -230,12 +204,12 @@ Widget buildLogInAndRegButton(
             decoration: BoxDecoration(
                 color: isButtonEnabled == true
                     ? AppColors.accentColor
-                    : AppColors.primarySecondaryText,
+                    : AppColors.secondaryColor,
                 borderRadius: BorderRadius.circular(15.w),
                 border: Border.all(
                     color: isButtonEnabled == true
                         ? Colors.transparent
-                        : AppColors.primarySecondaryText),
+                        : AppColors.secondaryText),
                 boxShadow: [
                   BoxShadow(
                     spreadRadius: 1,
@@ -280,19 +254,10 @@ Widget buildPinCodeField(
       selectedColor: AppColors.secondaryColor,
     ),
     animationDuration: const Duration(milliseconds: 300),
-    backgroundColor: Colors.blue.shade50,
+    backgroundColor: AppColors.accentColor.withOpacity(0.5),
     enableActiveFill: true,
     onChanged: (value) {
       context.read<VerificationBloc>().add(CodeChanged(value));
-      // context.read<VerificationBloc>().add(CodeChanged(value));
     },
-    // onCompleted: (value) {
-    //   context.read<VerificationBloc>().add(SubmitCode(code: value));
-    //   context.read<VerificationBloc>().add(CodeChanged(value));
-    //   title == ""
-    //       ? Navigator.of(context).pushNamed("/reset_successful")
-    //       : Navigator.of(context).pushNamed("/create_profile");
-    //   //  context.read<VerificationBloc>().add(SubmitCode(value));
-    // },
   );
 }

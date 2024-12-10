@@ -33,7 +33,7 @@ class PinCodeFieldWidget extends StatelessWidget {
         selectedColor: AppColors.secondaryColor,
       ),
       animationDuration: const Duration(milliseconds: 300),
-      backgroundColor: Colors.blue.shade50,
+      backgroundColor: AppColors.accentColor.withOpacity(0.5),
       enableActiveFill: true,
       onChanged: (value) {
         context.read<VerificationBloc>().add(CodeChanged(value));

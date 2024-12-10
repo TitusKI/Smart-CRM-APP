@@ -42,14 +42,14 @@ class _WelcomeState extends State<Welcome> {
                           context,
                           'Next',
                           "Welcome to Smart CRM",
-                          "Streamline your sales and manage leads effortlessly with Smart CRM.",
+                          "Streamline your customer and manage leads effortlessly with Smart CRM.",
                           "assets/welcome/welcome1.png"),
                       _page(
                           2,
                           context,
                           'Next',
                           "Track & Optimize",
-                          "Monitor customer interactions, track performance, and optimize productivity.",
+                          "Monitor contact interactions, track performance, and optimize productivity.",
                           "assets/welcome/welcome2.png"),
                       _page(
                           3,
@@ -68,7 +68,7 @@ class _WelcomeState extends State<Welcome> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       decorator: DotsDecorator(
                           activeColor: AppColors.accentColor,
-                          color: AppColors.cardColor,
+                          color: AppColors.cardBackground,
                           size: const Size.square(8.0),
                           activeSize: const Size(15.0, 8.0),
                           activeShape: RoundedRectangleBorder(

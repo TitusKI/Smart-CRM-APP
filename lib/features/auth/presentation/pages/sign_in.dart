@@ -60,7 +60,7 @@ class _SignInState extends State<SignIn> {
       statusBarIconBrightness: Brightness.light, // Light text/icons
     ));
     return BlocListener<SignInBloc, SignInState>(listener: (context, state) {
-      if (state.signInSuccess || state.isGoogleSignInSuccess) {
+      if (state.signInSuccess) {
         print("Successfully Signed in: ${state.email}");
         // context.read<SignUpBloc>().add(SignUpLoadingEvent());
 

@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:smart_crm_app/features/auth/domain/usecases/logout.dart';
 
-import '../../../../../core/resources/generic_state.dart';
-import '../../../../../injection_container.dart';
+import '../../../../core/resources/generic_state.dart';
+import '../../../../injection_container.dart';
 
 class SignOutCubit extends Cubit<GenericState> {
   SignOutCubit() : super(const GenericState());
