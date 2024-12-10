@@ -25,9 +25,6 @@ class LeadModel extends LeadEntity {
     return {
       'title': title,
       'description': description,
-      'status': status,
-      'user_id': userId,
-      'rejectionNotes': rejectionNotes,
     };
   }
 
