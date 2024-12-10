@@ -47,9 +47,10 @@ class ContactServicesImpl implements ContactServices {
   Future<void> addContact(ContactEntity contact) async {
     final contactInfo = ContactModel.fromEntity(contact);
     try {
+      print("Try to add contact");
       final response = await _dio.post("/contacts", data: contactInfo.toJson());
       final data = response.data;
-      if (data == null || data['token'] == null) {
+      if (data == null) {
         throw Exception("Adding contact failed: No access token received");
       }
       print("Contact added successfully");
@@ -68,7 +69,10 @@ class ContactServicesImpl implements ContactServices {
   @override
   Future<void> deleteContact(String id) async {
     try {
-      final response = await _dio.delete("/contacts/$id");
+      final response = await _dio.delete("/contacts/$id",
+          options: Options(headers: {
+            "Authorization": "Bearer ${storageService.getToken()}"
+          }));
       final data = response.data;
       if (data == null || data['token'] == null) {
         throw Exception("Deleting contact failed: No access token received");
@@ -88,18 +92,22 @@ class ContactServicesImpl implements ContactServices {
   @override
   Future<List<ContactEntity>> getAllContacts() async {
     try {
+      print("Trying to get all contacts");
       final response = await _dio.get("/contacts");
       final data = response.data;
-      if (data == null || data['token'] == null) {
-        throw Exception("Getting contacts failed: No access token received");
+      print(data['data']['contacts']);
+      if (data['data']['contacts'] == null) {
+        throw Exception("Getting contacts failed: Contact is null ");
       }
       print("Contacts fetched successfully");
-      return (data).map((e) => ContactModel.fromJson(e).toEntity()).toList()
-          as List<ContactEntity>;
+      //Unexpected error :TypeError: Instance of '(dynamic) => ContactEntity': type '(dynamic) => ContactEntity' is not a subtype of type '(String, dynamic) => MapEntry<dynamic, dynamic>'
+      return (data['data']['contacts'] as List)
+          .map((e) => ContactModel.fromJson(e).toEntity())
+          .toList();
     } catch (err) {
       if (err is DioException) {
         if (err.response != null) {
-          print("ERROR CATCHED: ${err.response!.data}");
+          print("ERROR CATCHED: ${err.response!.data['data']['contacts']}");
         }
       } else {
         print("Unexpected error :$err");
@@ -111,9 +119,10 @@ class ContactServicesImpl implements ContactServices {
   @override
   Future<ContactEntity> getContactById(String id) async {
     try {
+      print("Trying to get contact by id");
       final response = await _dio.get("/contacts/$id");
       final data = response.data;
-      if (data == null || data['token'] == null) {
+      if (data == null) {
         throw Exception("Getting contact failed: No access token received");
       }
       print("Contact fetched successfully");
@@ -132,8 +141,12 @@ class ContactServicesImpl implements ContactServices {
 
   @override
   Future<void> updateContact(ContactEntity contact) async {
+    print("Trying to update contact");
     try {
       await _dio.patch("/contacts/${contact.id}",
+          options: Options(headers: {
+            "Authorization": "Bearer ${storageService.getToken()}"
+          }),
           data: ContactModel.fromEntity(contact).toJson());
     } catch (err) {
       if (err is DioException) {

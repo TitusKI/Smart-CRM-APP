@@ -6,7 +6,7 @@ class ContactModel extends ContactEntity {
     required super.name,
     required super.phone,
     super.address,
-    super.relationship,
+    super.role,
   });
 
   factory ContactModel.fromJson(Map<String, dynamic> json) {
@@ -15,7 +15,7 @@ class ContactModel extends ContactEntity {
       name: json['name'],
       phone: json['phone'],
       address: json['address'],
-      relationship: json['relationship'],
+      role: json['role'],
     );
   }
 
@@ -24,7 +24,7 @@ class ContactModel extends ContactEntity {
       'name': name,
       'phone': phone,
       'address': address,
-      'relationship': relationship,
+      'role': role,
     };
   }
 
@@ -33,7 +33,7 @@ class ContactModel extends ContactEntity {
       name: entity.name,
       phone: entity.phone,
       address: entity.address,
-      relationship: entity.relationship,
+      role: entity.role,
     );
   }
   ContactEntity toEntity() {
@@ -42,7 +42,7 @@ class ContactModel extends ContactEntity {
       name: name,
       phone: phone,
       address: address,
-      relationship: relationship,
+      role: role,
     );
   }
 }
