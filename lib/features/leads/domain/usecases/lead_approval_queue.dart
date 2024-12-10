@@ -7,6 +7,6 @@ import '../repository/lead_repository.dart';
 class LeadApprovalQueueUsecase extends Usecase<List<LeadEntity>, void> {
   @override
   Future<List<LeadEntity>> call({void params}) async {
-    return await sl<LeadRepository>().getAllLeads();
+    return await sl<LeadRepository>().getApprovalQueue();
   }
 }
