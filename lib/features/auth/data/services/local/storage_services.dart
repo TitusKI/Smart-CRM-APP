@@ -11,6 +11,8 @@ class StorageServices {
   Future<void> storeToken({
     required String token,
     String? email,
+    String? name,
+    String? role,
     required String userId,
   }) async {
     if (token.isNotEmpty) {
@@ -23,11 +25,19 @@ class StorageServices {
     if (email != null) {
       await _prefs.setString('email', email);
     }
+    if (name != null) {
+      await _prefs.setString('name', name);
+    }
+    if (role != null) {
+      await _prefs.setString('role', role);
+    }
   }
 
   Future<void> clearTokens() async {
     await _prefs.remove('token');
     await _prefs.remove('email');
+    await _prefs.remove('name');
+    await _prefs.remove('role');
     await _prefs.remove(AppConstant.USER_ID_KEY);
   }
 
@@ -37,6 +47,14 @@ class StorageServices {
 
   String? getEmail() {
     return _prefs.getString('email');
+  }
+
+  String? getName() {
+    return _prefs.getString('name');
+  }
+
+  String? getRole() {
+    return _prefs.getString('role');
   }
 
   Future<String?> getUserId() async {
@@ -50,6 +68,7 @@ class StorageServices {
   bool getIsLoggedIn() {
     return _prefs.getBool(AppConstant.USER_TOKEN) ?? false;
   }
+
   Future<void> setBool(String key, bool value) async {
     await _prefs.setBool(key, value);
   }
