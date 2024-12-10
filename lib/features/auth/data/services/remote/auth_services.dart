@@ -5,6 +5,7 @@ import 'package:smart_crm_app/injection_container.dart';
 
 import '../../../domain/entities/login_entity.dart';
 import '../../../domain/entities/signup_entity.dart';
+import '../../../presentation/widgets/flutter_toast.dart';
 import '../local/storage_services.dart';
 
 abstract class AuthServices {
@@ -55,13 +56,17 @@ class AuthServicesImpl implements AuthServices {
       }
       print("token: ${data['token']}");
       await storageService.storeToken(
-          token: data['token'],
-          userId: data['data']['id'],
-          email: data['data']['email']);
+        token: data['token'],
+        userId: data['data']['id'],
+        email: data['data']['email'],
+        name: data['data']['name'],
+        role: data['data']['role'],
+      );
     } catch (err) {
       if (err is DioException) {
         if (err.response != null) {
-          print("ERROR CATCHED: ${err.response!.data}");
+          toastInfo(msg: err.response!.data['message']);
+          print("ERROR CATCHED: ${err.response!.data['message']}");
         }
       } else {
         print("Unexpected error :$err");
@@ -75,7 +80,7 @@ class AuthServicesImpl implements AuthServices {
     try {
       await _dio.post("/users/logout",
           options: Options(headers: {'Authorization': "Bearer $token"}));
-      storageService.clearTokens();
+      await storageService.clearTokens();
       print("Successfuly signed out");
     } catch (e) {
       print("Error while signing out: $e");
@@ -114,9 +119,12 @@ class AuthServicesImpl implements AuthServices {
   Future<void> deleteAccount() async {
     try {
       await _dio.delete("/users/deleteMe",
-          options: Options(headers: {
-            "Authorization": "Bearer ${storageService.getToken()}"
-          }));
+          options: Options(
+            headers: {"Authorization": "Bearer ${storageService.getToken()}"},
+          ),
+          queryParameters: {
+            "id": storageService.getUserId(),
+          });
       storageService.clearTokens();
     } catch (err) {
       if (err is DioException) {
@@ -175,13 +183,21 @@ class AuthServicesImpl implements AuthServices {
   @override
   Future<List<UserEntity>> getAllUsers() async {
     try {
+      print("Trying to get user lists");
+
       final response = await _dio.get(
         '/users',
         options: Options(
             headers: {'Authorization': 'Bearer ${storageService.getToken()}'}),
       );
-      final data = response.data['data'];
-      return (data as List)
+      final data = response.data['data']['users'];
+      print(data);
+      print((data as List)
+          .map((userJson) => UserModel.fromMap(userJson).toEntity())
+          .toList());
+
+      print("Users fetched successfully");
+      return (data)
           .map((userJson) => UserModel.fromMap(userJson).toEntity())
           .toList();
     } catch (err) {
