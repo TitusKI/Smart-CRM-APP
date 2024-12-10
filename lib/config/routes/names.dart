@@ -7,7 +7,6 @@ class AppRoutes {
 
   static const SIGNUP = '/sign_up';
   static const SIGN_UP_VERIFICATION = '/sign_up_verification';
-  static const HOME = '/home';
   static const RESET_PASSWORD = '/reset_password';
   static const DASHBOARD = '/dashboard';
 

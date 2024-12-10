@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_crm_app/features/admin/presentation/bloc/admin_cubit.dart';
 import 'package:smart_crm_app/config/routes/names.dart';
 import 'package:smart_crm_app/core/constants/exports.dart';
+import 'package:smart_crm_app/features/auth/presentation/bloc/deactivate_account.dart';
 import 'package:smart_crm_app/features/auth/presentation/bloc/reset_password/reset_password_bloc.dart';
 import 'package:smart_crm_app/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import 'package:smart_crm_app/features/auth/presentation/bloc/sign_up/sign_up_bloc.dart';
 import 'package:smart_crm_app/features/auth/presentation/bloc/welcome/welcome_bloc.dart';
 import 'package:smart_crm_app/features/auth/presentation/pages/reset_screen.dart';
 import 'package:smart_crm_app/features/auth/presentation/pages/sign_up.dart';
+import 'package:smart_crm_app/features/contacts/presentation/bloc/contact_cubit.dart';
+import 'package:smart_crm_app/features/leads/presentation/bloc/leads_cubit.dart';
+import 'package:smart_crm_app/features/notifications/presentation/bloc/notification_cubit.dart';
 import '../../features/auth/presentation/bloc/animation/animation_bloc.dart';
+import '../../features/auth/presentation/bloc/sign_out_cubit.dart';
 import '../../features/auth/presentation/bloc/toogle_password/toggle_password_bloc.dart';
 import '../../features/auth/presentation/bloc/verification/verification_bloc.dart';
 import '../../features/auth/presentation/pages/sign_in.dart';
@@ -47,20 +53,29 @@ class AppPages {
             create: (_) => sl<VerificationBloc>(),
           )),
       PageEntity(
-          route: AppRoutes.HOME,
+          route: AppRoutes.MAIN,
           page: const MyHomePage(),
           bloc: BlocProvider(create: (_) => sl<BottomNavigationBloc>())),
-
       PageEntity(
         route: AppRoutes.DASHBOARD,
         page: const DashboardScreen(),
         bloc: BlocProvider(
-            create: (_) => sl<DashboardCubit>()..loadDashboardData()),
+            create: (_) => sl<DashboardCubit>()..fetchDashboardData()),
       ),
+      PageEntity(bloc: BlocProvider(create: (_) => ContactCubit())),
+      PageEntity(bloc: BlocProvider(create: (_) => LeadCubit())),
+      PageEntity(bloc: BlocProvider(create: (_) => NotificationCubit())),
+      PageEntity(bloc: BlocProvider(create: (_) => DeactivateMyAccount())),
+      PageEntity(bloc: BlocProvider(create: (_) => AdminCubit())),
+
       // Home Page
       PageEntity(
           bloc: BlocProvider(
         create: (_) => TogglePasswordBloc(),
+      )),
+      PageEntity(
+          bloc: BlocProvider(
+        create: (_) => SignOutCubit(),
       )),
       PageEntity(
           bloc: BlocProvider(

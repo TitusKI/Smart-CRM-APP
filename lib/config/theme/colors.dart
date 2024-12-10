@@ -1,41 +1,65 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Fresh and Lignt
+  // Backgrounds
   static const Color primaryBackground = Colors.white;
+  static const Color cardBackground = Color(0xFFF4F4F4);
 
-  static const Color secondaryColor = Color(0xFF005782);
-  static const Color accentColor = Color(0xFF0097D3);
-  static const Color cardColor = Color(0xFFE5E7EB);
-  static const Color primarySecondaryText = Colors.grey;
-  static const Color loadingColor = Color.fromARGB(135, 232, 227, 227);
+  // Primary and accent colors
+  static const Color primaryColor =
+      Color(0xFF000000); // Black for titles and headings
+  static const Color secondaryColor = Color(0xFF5C5C5C); // Subtle dark gray
+  static const Color accentColor =
+      Color(0xFF5A97D3); // Soft blue for highlights
 
-  static const Color primaryText = Color(0xFF0C0E0A);
+  // Text colors
+  static const Color primaryText =
+      Color(0xFF1A1A1A); // Dark black for main text
+  static const Color secondaryText =
+      Color(0xFF707070); // Muted gray for secondary text
+  static const Color hintText =
+      Color(0xFFB3B3B3); // Light gray for placeholder text
+
+  // Miscellaneous
+  static const Color borderColor = Color(0xFFD9D9D9); // Light border color
+  static const Color progressColor = Color(0xFF0055FF); // Progress bar color
 }
 
 class LightModeColors {
-  static const Color primaryColor = Color(0xFF005782);
-  static const Color secondaryColor = Color(0xFF0097D3);
-  static const Color cardColor = Color(0xFFE5E7EB);
-  static const Color primaryText = Color(0xFF0C0E0A);
-  static const Color primarySecondaryText = Colors.grey;
-  // for names and titles
-  static const Color headlineLarge = Color(0xFF005782);
-  // for username
-  static const Color headlineMedium = Colors.black45;
-// for details
-  static Color? headlineSmall = Colors.grey[850];
+  // Base colors
+  static const Color primaryBackground = AppColors.primaryBackground;
+  static const Color cardColor = AppColors.cardBackground;
 
-  //static const Color secondaryText = Colors.black45;
-  static const Color hintColor = Colors.black26;
+  // Text colors
+  static const Color primaryText = AppColors.primaryText;
+  static const Color secondaryText = AppColors.secondaryText;
+
+  // Highlights
+  static const Color accentColor = AppColors.accentColor;
+  static const Color borderColor = AppColors.borderColor;
+
+  // Progress indicators
+  static const Color progressColor = AppColors.progressColor;
 }
 
 class DarkModeColors {
-  static const Color primaryColor = Colors.black;
-  static const Color secondaryColor = Color(0xFF0097D3);
-  static const Color cardColor = Color(0xFF1E1E1E);
-  static const Color primaryText = Colors.white;
-  static const Color primarySecondaryText = Color(0xFFB0B0B0);
-  static const Color secondaryText = Color(0xFF8A8A8A);
-  static const Color hintColor = Colors.white38;
+  // Base colors
+  static const Color primaryBackground =
+      Color(0xFF1A1A1A); // Dark gray background
+  static const Color cardColor =
+      Color(0xFF2E2E2E); // Slightly lighter dark gray for cards
+
+  // Text colors
+  static const Color primaryText = Colors.white; // White for main text
+  static const Color secondaryText =
+      Color(0xFFB3B3B3); // Muted gray for secondary text
+
+  // Highlights
+  static const Color accentColor =
+      Color(0xFF6FAFFF); // Bright blue for highlights
+  static const Color borderColor = Color(0xFF4A4A4A); // Darker border
+
+  // Progress indicators
+  static const Color progressColor =
+      Color(0xFF008FFF); // Vibrant blue for progress
 }
