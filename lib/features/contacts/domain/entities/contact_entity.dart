@@ -3,13 +3,13 @@ class ContactEntity {
   final String name;
   final String phone;
   final String? address;
-  final String? relationship;
+  final String? role;
 
   ContactEntity({
     this.id,
     required this.name,
     required this.phone,
     this.address,
-    this.relationship,
+    this.role,
   });
 }
