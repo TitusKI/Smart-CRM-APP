@@ -48,8 +48,11 @@ class ContactServicesImpl implements ContactServices {
     final contactInfo = ContactModel.fromEntity(contact);
     try {
       print("Try to add contact");
+      print(contactInfo.toJson());
       final response = await _dio.post("/contacts", data: contactInfo.toJson());
       final data = response.data;
+
+      print(data);
       if (data == null) {
         throw Exception("Adding contact failed: No access token received");
       }
