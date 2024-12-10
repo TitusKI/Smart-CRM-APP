@@ -21,18 +21,14 @@ abstract class LeadServices {
 class LeadServicesImpl implements LeadServices {
   final storageServices = sl<StorageServices>();
 
-  final Dio _dio = Dio(BaseOptions(baseUrl: AppConstant.BASE_URL, headers: {
-    'Content-Type': 'application/json',
-  }));
+  final Dio _dio = Dio(BaseOptions(baseUrl: AppConstant.BASE_URL));
   LeadServicesImpl() {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
         const pathsWithHeaders = [
           "/leads",
-          "/leads/:id",
-          "/leads/admin/approval-queue",
-          "/leads/:id/approve",
-          "/leads/:id/reject",
+
+          // "/leads/admin/approval-queue"
         ];
         if (pathsWithHeaders.contains(options.path)) {
           if (pathsWithHeaders.contains(options.path)) {
@@ -56,8 +52,8 @@ class LeadServicesImpl implements LeadServices {
     try {
       final response = await _dio.post("/leads", data: leadInfo.toJson());
       final data = response.data;
-      if (data == null || data['token'] == null) {
-        throw Exception("Adding lead failed: No access token received");
+      if (data == null) {
+        throw Exception("Adding lead failed");
       }
       print("Lead added successfully");
     } catch (err) {
@@ -75,10 +71,13 @@ class LeadServicesImpl implements LeadServices {
   @override
   Future<void> deleteLead(String id) async {
     try {
-      final response = await _dio.delete("/leads/$id");
+      final response = await _dio.delete("/leads/$id",
+          options: Options(headers: {
+            "Authorization": "Bearer ${storageServices.getToken()}"
+          }));
       final data = response.data;
-      if (data == null || data['token'] == null) {
-        throw Exception("Deleting lead failed: No access token received");
+      if (data == null) {
+        throw Exception("Deleting lead failed");
       }
       print("Contact deleted successfully");
     } catch (err) {
@@ -95,14 +94,17 @@ class LeadServicesImpl implements LeadServices {
   @override
   Future<List<LeadEntity>> getAllLeads({String? status}) async {
     try {
+      print("Trying to get all leads");
       final response = await _dio.get("/leads");
       final data = response.data;
-      if (data == null || data['token'] == null) {
-        throw Exception("Getting leads failed: No access token received");
+      print(data);
+      if (data['data']['leads'] == null) {
+        throw Exception("Getting leads failed");
       }
       print("leads fetched successfully");
-      return (data).map((e) => LeadModel.fromJson(e).toEntity()).toList()
-          as List<LeadEntity>;
+      return (data['data']['leads'] as List)
+          .map((e) => LeadModel.fromJson(e).toEntity())
+          .toList();
     } catch (err) {
       if (err is DioException) {
         if (err.response != null) {
@@ -118,10 +120,14 @@ class LeadServicesImpl implements LeadServices {
   @override
   Future<LeadEntity> getLeadById(String id) async {
     try {
-      final response = await _dio.get("/laeds/$id");
+      final response = await _dio.get("/laeds/$id",
+          options: Options(headers: {
+            "Authorization": "Bearer ${storageServices.getToken()}"
+          }));
       final data = response.data;
-      if (data == null || data['token'] == null) {
-        throw Exception("Getting contact failed: No access token received");
+      print(data);
+      if (data == null) {
+        throw Exception("Getting contact failed");
       }
       print("Lead fetched successfully");
       return LeadModel.fromJson(data).toEntity();
@@ -139,9 +145,18 @@ class LeadServicesImpl implements LeadServices {
 
   @override
   Future<void> updateLead(LeadEntity lead) async {
+    print("Trying to Update the lead");
+    final leadinfo = LeadModel.fromEntity(lead).toJson();
+    print(lead.id);
     try {
-      await _dio.patch("/leads/${lead.id}",
-          data: LeadModel.fromEntity(lead).toJson());
+      print(LeadModel.fromEntity(lead).toJson());
+      final response = await _dio.put("/leads/${lead.id}",
+          data: leadinfo,
+          options: Options(headers: {
+            "Authorization": "Bearer ${storageServices.getToken()}"
+          }));
+      print(response.data);
+      print("Lead updated successfully");
     } catch (err) {
       if (err is DioException) {
         if (err.response != null) {
@@ -156,15 +171,14 @@ class LeadServicesImpl implements LeadServices {
   @override
   Future<void> approveLead(LeadEntity lead) async {
     try {
-      final response = await _dio.post(
-        '/leads/${lead.id}/approve',
-      );
+      print("Trying to approve the lead");
+      final response = await _dio.post('/leads/${lead.id}/approve',
+          options: Options(headers: {
+            "Authorization": "Bearer ${storageServices.getToken()}"
+          }));
+      print(response.data);
 
-      if (response.statusCode == 200) {
-        print('Lead approved successfully');
-      } else {
-        throw Exception('Failed to approve lead');
-      }
+      print('Lead approved successfully');
     } catch (err) {
       if (err is DioException) {
         if (err.response != null) {
@@ -179,9 +193,14 @@ class LeadServicesImpl implements LeadServices {
   @override
   Future<List<LeadEntity>> getApprovalQueue() async {
     try {
-      final response = await _dio.get("/leads/admin/approval-queue");
+      print("Trying to get approval queue");
+      final response = await _dio.get("/leads/admin/approval-queue",
+          options: Options(headers: {
+            "Authorization": "Bearer ${storageServices.getToken()}"
+          }));
       final data = response.data;
-      if (data == null || data['token'] == null) {
+      print(data);
+      if (data == null) {
         throw Exception("Getting leads failed: No access token received");
       }
       print("leads fetched successfully");
@@ -202,7 +221,11 @@ class LeadServicesImpl implements LeadServices {
   @override
   Future<void> rejectLead(LeadEntity lead) async {
     try {
+      print("Tryig to reject the lead");
       final response = await _dio.post('/leads/${lead.id}/reject',
+          options: Options(headers: {
+            "Authorization": "Bearer ${storageServices.getToken()}"
+          }),
           data: {"rejectionNotes": lead.rejectionNotes});
 
       if (response.statusCode == 200) {
