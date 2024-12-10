@@ -45,20 +45,20 @@ Welcome to **Smart CRM**, the ultimate mobile solution for managing customer/con
 1. **Clone the repository:**  
    ```bash
    git clone https://github.com/yourusername/smart_crm_app.git
-2.**Navigate to the project directory:
+2.**Navigate to the project directory:**
 
    ```bash
    cd smart_crm_app
-3.**Install dependencies:
+3.**Install dependencies:**
 
 
    ```bash
    flutter pub get
-4.**Run the app:
+4.**Run the app:**
 
    ```bash
     flutter run
-5.**Build for production (optional):
+5.**Build for production (optional):**
 
     ```bash
 flutter build apk
@@ -66,17 +66,17 @@ flutter build apk
 Home Dashboard
 Lead Management
 Contact Overview
-###🤝 Contributing
+###🤝 Contributing**
 We welcome contributions from the community! 🌍
 
-1.**Fork the repository.
-2.**Create a new branch:
+1.**Fork the repository.**
+2.**Create a new branch:**
    ```bash
 git checkout -b feature-name
-3.**Commit your changes:
+3.**Commit your changes:**
    ```bash
 git commit -m "Add new feature"
-4.**Push to your branch and create a pull request:
+4.**Push to your branch and create a pull request:**
    ```bash
 git push origin feature-name
 
@@ -86,3 +86,5 @@ Phone: +251-921889274
 🌟 Show Your Support
 If you find Smart CRM helpful, please give this repository a ⭐!
 🎉 Let’s revolutionize CRM management together! 🎉
+---
+
