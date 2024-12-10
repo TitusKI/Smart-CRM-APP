@@ -50,12 +50,13 @@ class NotificationServicesImpl implements NotificationServices {
         '/notifications',
         queryParameters: {'user_id': userId},
       );
-
+      print(response.data);
       if (response.statusCode == 200) {
-        List<dynamic> data = response.data;
-        return data
+        final data = response.data['data']['notifications'];
+        print(data);
+        return (data as List)
             .map((notificationJson) =>
-                NotificationModel.fromJson(notificationJson))
+                NotificationModel.fromJson(notificationJson).toEntity())
             .toList();
       } else {
         throw Exception('Failed to load notifications');
@@ -75,11 +76,12 @@ class NotificationServicesImpl implements NotificationServices {
   @override
   Future<void> markNotificationAsRead(String id) async {
     try {
-      final userId = await storageService.getUserId();
-      final response =
-          await _dio.post('/notifications/$id/read', queryParameters: {
-        'user_id': userId,
-      });
+      print("Id in markNotificationAsRead: $id");
+      final response = await _dio.post('/notifications/$id/read',
+          options: Options(headers: {
+            'Authorization': 'Bearer ${storageService.getToken()}'
+          }));
+      print(response.data);
       if (response.statusCode == 200) {
         print("Notification marked as read");
       }
