@@ -50,8 +50,11 @@ dependencies:
   pin_code_fields: ^8.0.1
   fluttertoast: ^8.2.8
   convex_bottom_bar: ^3.2.0
-  charts_flutter: ^0.12.0
+
   fl_chart: ^0.69.2
+  data_table_2: ^2.5.16
+  intl: ^0.20.1
+  badges: ^3.1.2
 
 dev_dependencies:
   flutter_test:
