@@ -1,35 +1,45 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_crm_app/core/resources/generic_state.dart';
+import 'package:smart_crm_app/features/dashboard/domain/entities/dashboarddata.dart';
+import 'package:smart_crm_app/injection_container.dart';
 
-import '../../../../core/resources/generic_state.dart';
-import '../../domain/entities/dashboarddata.dart';
+import '../../../contacts/domain/usecases/get_all_contacts.dart';
+import '../../../leads/domain/usecases/get_leads.dart';
 
-class DashboardCubit extends Cubit<GenericState<dynamic>> {
-  DashboardCubit() : super(const GenericState());
+class DashboardCubit extends Cubit<GenericState> {
+  DashboardCubit() : super(const GenericState(isLoading: true));
 
-  void loadDashboardData() async {
-    emit(state.copyWith(isLoading: true)); // Start loading state
-
+  Future<void> fetchDashboardData() async {
     try {
-      // Simulate data fetching
-      await Future.delayed(const Duration(seconds: 2));
-      final data = DashboardData(
-        totalContacts: 45,
-        activeLeads: 12,
-        pendingLeads: 8,
-        recentActivities: [
-          Activity(title: "John Doe updated a lead", timestamp: "2 hours ago"),
-          Activity(
-              title: "New contact added: Jane Smith", timestamp: "5 hours ago"),
-        ],
+      // Fetch contacts
+      final contacts = await sl<GetAllContactsUsecase>().call();
+      final totalContacts = contacts.length;
+
+      // Fetch leads
+      final leads = await sl<GetLeadsUsecase>().call();
+      final activeLeads =
+          leads.where((lead) => lead.status == 'Approved').length;
+      final pendingLeads =
+          leads.where((lead) => lead.status == 'Pending').length;
+      final rejectedLeads =
+          leads.where((lead) => lead.status == 'Rejected').length;
+
+      final recentActivities = [
+        {'title': 'Kidane updated a lead', 'timestamp': '2 hours ago'},
+        {'title': 'New contact added: Kaleab K', 'timestamp': '5 hours ago'},
+      ];
+
+      final dashboardData = DashboardData(
+        totalContacts: totalContacts,
+        activeLeads: activeLeads,
+        pendingLeads: pendingLeads,
+        rejectedLeads: rejectedLeads,
+        recentActivities: recentActivities,
       );
 
-      emit(state.copyWith(
-          isLoading: false,
-          isSuccess: true,
-          data: data)); // Loaded successfully
-    } catch (e) {
-      emit(state.copyWith(
-          isLoading: false, isSuccess: false, failure: e.toString()));
+      emit(state.copyWith(data: dashboardData, isSuccess: true));
+    } catch (error) {
+      emit(state.copyWith(failure: error.toString()));
     }
   }
 }
