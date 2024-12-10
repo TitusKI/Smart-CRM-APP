@@ -12,9 +12,7 @@ class ThemeCubit extends Cubit<ThemeData> {
       colorScheme: const ColorScheme.light(),
       inputDecorationTheme: const InputDecorationTheme(
         labelStyle: TextStyle(color: AppColors.accentColor), // Label color
-        enabledBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppColors.accentColor)), // Enabled border
+        // Enabled border
         focusedBorder: OutlineInputBorder(
             borderSide:
                 BorderSide(color: AppColors.accentColor)), // Focused border
@@ -51,9 +49,7 @@ class ThemeCubit extends Cubit<ThemeData> {
     colorScheme: const ColorScheme.highContrastDark(),
     inputDecorationTheme: const InputDecorationTheme(
       labelStyle: TextStyle(color: AppColors.accentColor), // Label color
-      enabledBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: AppColors.accentColor)), // Enabled border
+      // Enabled border
       focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.accentColor)),
     ),
