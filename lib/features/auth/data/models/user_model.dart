@@ -2,14 +2,16 @@ import 'package:smart_crm_app/features/auth/domain/entities/signup_entity.dart';
 
 class UserModel {
   final String email;
-  final String password;
+  final String? password;
   final String? confirmPassword;
   final String name;
   final String? profileImage;
   final String? role;
+  final String? id;
   const UserModel({
+    this.id,
     required this.email,
-    required this.password,
+    this.password,
     this.confirmPassword,
     required this.name,
     this.profileImage,
@@ -31,8 +33,9 @@ class UserModel {
       email: map['email'],
       password: map['password'],
       name: map['name'],
-      profileImage: map['profileImage'],
+      // profileImage: map['profileImage'],
       role: map['role'],
+      id: map['_id'],
     );
   }
   factory UserModel.fromEntity(UserEntity entity) {
@@ -48,11 +51,12 @@ class UserModel {
   UserEntity toEntity() {
     return UserEntity(
       email: email,
-      password: password,
-      confirmPassword: confirmPassword,
+      password: password ?? "",
+      confirmPassword: confirmPassword ?? "",
       name: name,
-      profileImage: profileImage,
+      profileImage: profileImage ?? "",
       role: role,
+      id: id,
     );
   }
 }
