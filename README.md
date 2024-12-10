@@ -12,18 +12,16 @@ Welcome to **Smart CRM**, the ultimate mobile solution for managing customer/con
 - Categorize contacts as leads, prospects, or customers for better organization.  
 
 ### 🚀 **Lead Management**  
-- Track leads through various sales stages.  
+- Track leads through various stages.  
 - Update lead statuses: Approved, Pending, or Rejected.  
 - Set reminders for timely follow-ups to close deals.  
 
 ### 📊 **Analytics & Insights**  
-- Interactive charts (pie, bar, and line) for easy data visualization.  
-- Gain actionable insights into sales performance and trends.  
+- Interactive charts (pie, bar, and line) for easy data visualization.    
 - Visualize the distribution of users, leads, and contacts effectively.  
 
 ### 🔔 **Smart Notifications**  
 - Receive real-time updates on activities and leads.  
-- Sync reminders directly with your calendar for better planning.  
 
 ### 🎨 **Customizable Interface**  
 - Toggle between light and dark modes to suit your preference.  
